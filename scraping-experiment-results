@@ -1,0 +1,42 @@
+Experiment 1: 20 threads scraping about 20,000 players
+---------------------------------------------------------
+Finally we have 19868 IDs, 19868 player name, 19868 links of player-images, 19868 links of countries and 19868 links of clubs
+Dataframe created successfully
+           ID  ...                                         Club Logo
+0      222716  ...    https://cdn.sofifa.com/teams/1629/light_30.png
+1      160766  ...  https://cdn.sofifa.com/teams/111817/light_30.png
+2      246420  ...     https://cdn.sofifa.com/teams/229/light_30.png
+3      248243  ...      https://cdn.sofifa.com/teams/74/light_30.png
+4      179605  ...     https://cdn.sofifa.com/teams/234/light_30.png
+...       ...  ...                                               ...
+19863  235353  ...    https://cdn.sofifa.com/teams/1795/light_30.png
+19864  231943  ...       https://cdn.sofifa.com/teams/7/light_30.png
+19865  201939  ...     https://cdn.sofifa.com/teams/461/light_30.png
+19866  245371  ...  https://cdn.sofifa.com/teams/101088/light_30.png
+19867  233927  ...      https://cdn.sofifa.com/teams/47/light_30.png
+
+[19868 rows x 5 columns]
+Took 69.17385220527649 secs to complete
+
+
+
+
+Experiment 2: Single threaded scraping about 20,000 players
+---------------------------------------------------------
+Finally we have 19812 IDs, 19812 player name, 19812 links of player-images, 19812 links of countries and 19812 links of clubs
+Dataframe created successfully
+           ID  ...                                         Club Logo
+0      222716  ...    https://cdn.sofifa.com/teams/1629/light_30.png
+1      160766  ...  https://cdn.sofifa.com/teams/111817/light_30.png
+2      246420  ...     https://cdn.sofifa.com/teams/229/light_30.png
+3      248243  ...      https://cdn.sofifa.com/teams/74/light_30.png
+4      179605  ...     https://cdn.sofifa.com/teams/234/light_30.png
+...       ...  ...                                               ...
+19807  213956  ...     https://cdn.sofifa.com/teams/110/light_30.png
+19808  231943  ...       https://cdn.sofifa.com/teams/7/light_30.png
+19809  201939  ...     https://cdn.sofifa.com/teams/461/light_30.png
+19810  245371  ...  https://cdn.sofifa.com/teams/101088/light_30.png
+19811  233927  ...      https://cdn.sofifa.com/teams/47/light_30.png
+
+[19812 rows x 5 columns]
+Took 600.1779329776764 secs to complete
