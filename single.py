@@ -2,6 +2,7 @@
 from fifascraper import go_scrape
 from helper import *
 from time import time
+from tqdm import tqdm
 
 
 def main():
@@ -11,9 +12,9 @@ def main():
     country_img_links = []
     club_img_links = []
     print("Starting to scrape!!!")
-    sofifa_urls = ["https://sofifa.com/players?offset=" + str(offset) for offset in range(0, 20000, 60)]
-    for url in sofifa_urls:
-        print("Processing page at " + url)
+    sofifa_urls = ["https://sofifa.com/players?offset=" + str(offset) for offset in range(0, 500, 60)]
+    for url in tqdm(sofifa_urls):
+        #print("Processing page at " + url)
         try:
             (ids, names, p_links, c_links, cl_links) = go_scrape(url)
             player_ids.extend(ids)
@@ -33,12 +34,13 @@ def main():
                               country_img_links, club_img_links)
         print("Dataframe created successfully")
         print(df)
-        df.to_csv("working-links.csv")
+        df.to_csv("working-links-single-thread.csv")
+        return df.shape[0]
     except Exception as e:
         print("Exception during dataframe creation: " + str(e))
 
 
 if __name__ == "__main__":
     ts = time()
-    main()
-    print("Took {} secs to complete".format(time() - ts))
+    num_rows = main()
+    print("Took {} secs to scrape {} players".format(time() - ts, num_rows))

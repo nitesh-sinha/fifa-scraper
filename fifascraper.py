@@ -1,11 +1,15 @@
 import requests
 from bs4 import BeautifulSoup as bs
-import time
 import numpy as np
-# TODO: Add tqdm
 
-# Scrapes player images(almost 60) on one HTML page
+
 def scrape_player_images(html, player_img_links):
+    """
+    Scrapes player images(about 60 of them) on one HTML page
+    :param html: Parsed HTML page with all tags intact
+    :param player_img_links: list to store links of player's images while scraping
+    :return: None(player_img_links will contain the scraped output)
+    """
     # Scrape player images
     player_image_boxes = html.findAll("td", {"class": "col-avatar"})
     # print("Number of player images on this page = {}".format(len(player_image_boxes)))
@@ -16,8 +20,13 @@ def scrape_player_images(html, player_img_links):
             player_img_links.append(player_image.figure.img['data-src'])
 
 
-# Scrapes player ids(almost 60) on one HTML page
 def scrape_player_ids(html, player_ids):
+    """
+    Scrapes player ids(about 60 of them) on one HTML page
+    :param html: Parsed HTML page with all tags intact
+    :param player_ids: list to store player's IDs while scraping
+    :return: None(player_ids will contain the scraped output)
+    """
     # Scrape player ids
     player_id_boxes = html.findAll("a", {"class": "tooltip"})
     for player_id_box in player_id_boxes[:-4]:   # Eliminate 4 extra unwanted boxes towards end of page
@@ -28,8 +37,15 @@ def scrape_player_ids(html, player_ids):
         player_ids.append(href.split("/")[2])
 
 
-# Scrapes player names, country and club logo links(almost 60) on one HTML page
 def scrape_player_name_country_clubs(html, player_names, country_img_links, club_img_links):
+    """
+    Scrapes player names, country and club logo links(almost 60) on one HTML page
+    :param html: Parsed HTML page with all tags intact
+    :param player_names: list to store player's names while scraping
+    :param country_img_links: list to store links of country's flag of players while scraping
+    :param club_img_links: list to store links of club logos of players while scraping
+    :return: None(player_names,country_img_links,club_img_links will contain the scraped output)
+    """
     # Scrape player name along with his country and club images
     country_club_image_boxes = html.findAll("div", {"class": "bp3-text-overflow-ellipsis"})
     # print("Number of countries+club images on this page = {}".format(len(country_club_image_boxes)))
@@ -43,7 +59,7 @@ def scrape_player_name_country_clubs(html, player_names, country_img_links, club
             elif img_box.figure is not None:
                 club_img_links.append(img_box.figure.img['data-src'])  # has both img_box.figure and img_box.img
             elif img_box.a is not None and img_box.figure is None:
-                print("found one with no figure tag but only a tag")
+                #print("found one with no figure tag but only a tag")
                 club_img_links.append(np.NaN)
                 continue
             elif img_box.figure is None and img_box.img is not None:
@@ -55,10 +71,15 @@ def scrape_player_name_country_clubs(html, player_names, country_img_links, club
             continue
 
 
-# Scrapes the page at the given url(with 60 players on it)
 def go_scrape(url):
+    """
+    Scrapes the page at the given url(with 60 players on it)
+    :param url: HTTP address URL of one single HTML page to scrape data from
+    :return: list with ids, names and links of player's(images, country flags, club logos) on a single HTML page
+    """
     # Without user-agent header, this site return 403 Forbidden
-    user_agent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.37"
+    user_agent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) " \
+                 "Chrome/79.0.3945.88 Safari/537.37"
     scraping_started = False
     player_img_links = []
     player_ids = []
